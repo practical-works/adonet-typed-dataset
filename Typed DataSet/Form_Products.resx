@@ -148,27 +148,55 @@
     <value>False</value>
   </metadata>
   <metadata name="database.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>17, 17</value>
+    <value>2, 2</value>
   </metadata>
   <metadata name="bindingSource_product.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>448, 29</value>
+    <value>273, 21</value>
   </metadata>
   <metadata name="tableAdapter_product.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>108, 18</value>
+    <value>94, 7</value>
   </metadata>
   <metadata name="tableAdapterManager.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>264, 26</value>
+    <value>14, 34</value>
   </metadata>
   <metadata name="toolStrip_main.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>621, 29</value>
+    <value>577, 13</value>
   </metadata>
   <metadata name="menuStrip_main.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>726, 29</value>
+    <value>452, 13</value>
   </metadata>
-  <metadata name="statusStrip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>866, 29</value>
+  <metadata name="statusStrip_main.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>827, 18</value>
   </metadata>
-  <metadata name="toolStrip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>982, 29</value>
+  <metadata name="toolStrip_search.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>693, 16</value>
   </metadata>
+  <metadata name="$this.TrayHeight" type="System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>70</value>
+  </metadata>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        AAABAAEAEBAAAAEAIABoBAAAFgAAACgAAAAQAAAAIAAAAAEAIAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAA
+        AAD///8AAAAAIwAAADMAAAAzAAAAMwAAADMAAAAzAAAAMwAAADMAAAAzAAAAMwAAADMAAAAzAAAAMwAA
+        ACP///8A////AB1Vi8AeWpX/HViU/x1Yk/8cV5P/HFeT/xxXk/8cV5P/HFeT/xxXk/8dWJT/HViU/x5a
+        lf8dVYvA////AP///wAeXJf/YrLp/1ep4/9WqOP/Uqbi/1Ck4f9QpOH/UKTh/1Ck4f9SpuL/Vqjj/1ep
+        4/9isun/HlyX/////wD///8AHFuY/2qy5v9TpN//QoKv/7vj9v+44PT/t+D0/7fg9P+44PX/u+P3/0J9
+        pP9TpOD/arLm/xxbmP////8A////ABtcmv9zuOj/UqPf/0CArv8yhcX/MYPD/zGDw/8xg8P/MYPD/zOF
+        xv8+e6P/UqTg/3O46P8bXJr/////AP///wAaXZr/f73p/1Gi3v89fqz/Po/N/z6Oy/8+jsr/Po7K/z6O
+        y/8/j83/O3eh/1Gj3/9/ven/Gl2a/////wD///8AGl+d/4W/6f9Nn9r/OXmo/0SV0v9Ek8//RJPP/0ST
+        z/9Ek9D/RZXS/zVynv9Nn9v/hb/p/xpfnf////8A////ABlgn/+Mwuj/SJrX/zN2pf9Lm9b/SZjU/0mY
+        0/9JmNP/SZjU/0ub1/8wbpr/SJvY/4zC6P8ZYJ//////AP///wAZYqH/lMXo/0OV0/8vcaH/UaHc/0+f
+        2f9Pntj/T57Y/1Cf2f9Rot3/KmqW/0OW0/+Uxej/GWKh/////wD///8AGGSi/53I6P89kM//K22f/1eo
+        4/9WpuD/VaXg/1Wl4P9WpuD/V6jj/yRmlP8+kdD/ncjp/xhkov////8A////ABhlpf+lzej/N4rJ/yNp
+        m/8jaJv/I2eb/yJnmv8iZ5r/I2eb/yRonP8fYJH/N4vK/6XN6P8YZaX/////AP///wAXZ6f/rtDq/yuA
+        w/8vg8T/MYTF/zGExf8xhMX/MYTF/zGExf8xhMb/MITF/yuBw/+u0Or/F2en/////wD///8AGWqpqrfW
+        7P+52/P/udry/7rb8v+72/L/u9zy/7vc8v+72/L/u9vy/7na8v+52/P/t9bs/xlqqar///8A////AAAA
+        AAAZcbH/aaTQ/3ax3f82i8z/OIzM/ziMzP84jMz/OIzM/zaLzP92sd3/aaTQ/xlxsf8AAAAA////AP//
+        /wAAAAAAAAAAACJ4tf9qos//dKvY/3Ss1/90rNf/dKzX/3Ss1/90q9j/aaLO/yF4tf8AAAAAAAAAAP//
+        /wD///8AAAAAAAAAAAAAAAAAKn65/ziKwf83icD/NonA/zaJwP82icD/N4rA/zeLwf8AAAAAAAAAAAAA
+        AAD///8AgAEAAIABAACAAQAAgAEAAIABAACAAQAAgAEAAIABAACAAQAAgAEAAIABAACAAQAAgAEAAMAD
+        AADgBwAA8A8AAA==
+</value>
+  </data>
 </root>

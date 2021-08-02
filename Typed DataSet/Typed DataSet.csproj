@@ -111,6 +111,9 @@
     <Content Include="Database.mdb">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <None Include="Resources\key.png" />
+    <None Include="Resources\cross.png" />
+    <None Include="Resources\box.png" />
     <None Include="Resources\magnifier.png" />
     <None Include="Resources\help.png" />
     <None Include="Resources\resultset_next.png" />

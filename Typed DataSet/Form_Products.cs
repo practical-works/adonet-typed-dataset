@@ -1,7 +1,7 @@
 ﻿using System;
-using System.Windows.Forms;
 using System.Data;
-using System.Linq;
+using System.Windows.Forms;
+using System.ComponentModel;
 
 namespace GroceryManager
 {
@@ -10,12 +10,12 @@ namespace GroceryManager
         public Form_Products()
         {
             InitializeComponent();
-            LoadTable();
+            Retrieve();
             DisplayCurrent();
         }
 
         #region Common
-        public void LoadTable()
+        public void Retrieve()
         {
             try
             {
@@ -30,25 +30,22 @@ namespace GroceryManager
             }
         }
 
-        public void Filter(bool enable = true)
+        public void Filter(bool clear = false)
         {
-            if (enable)
+            string keyword = textBox_search.Text.ToLower();
+            if (clear || string.IsNullOrWhiteSpace(keyword))
             {
+                textBox_search.Clear();
                 bindingSource_product.RemoveFilter();
-                string keyword = textBox_search.Text;
-                if (!string.IsNullOrWhiteSpace(keyword))
-                {
-                    DisplayStatus("Searching for: {0}.", keyword);
-                    bindingSource_product.Filter = string.Format("{0}+{1} LIKE '%{2}%'", 
-                        database.product.titleColumn.ColumnName,
-                        database.product.descriptionColumn.ColumnName, 
-                        keyword);
-                }
+                return;
             }
-            else
-            {
-                bindingSource_product.RemoveFilter();
-            }
+            bindingSource_product.Filter = string
+                .Format("ISNULL({0},'') + ISNULL({1},'') LIKE '%{2}%'",
+                database.product.titleColumn.ColumnName,
+                database.product.descriptionColumn.ColumnName,
+                keyword);
+            DisplayStatus("{0} results found for: {1}.",
+                bindingSource_product.Count, keyword);
         }
 
         public void DisplayStatus(string text = null, params object[] args)
@@ -57,43 +54,46 @@ namespace GroceryManager
             {
                 text = "Ready.";
             }
-            label_status.Text = string.Format(text, args);
+            statusLabel_status.Text = string.Format(text, args);
+        }
+
+        public void SetCurrent()
+        {
+            int position = -1;
+            if (int.TryParse(textBox_position.Text, out position))
+            {
+                bindingSource_product.Position = position - 1;
+            }
+            else
+            {
+                textBox_position.Text = bindingSource_product.Position.ToString() + 1;
+            }
         }
 
         public void DisplayCurrent()
         {
             if (bindingSource_product.Current == null)
             {
-                ToggleControls(this, enable: false);
-                label_current.Text = "(No current)";
-                label_currentIndex.Text = "No items.";
+                splitContainer_main.Panel1.Enabled = false;
+                textBox_position.Enabled = false;
+
+                textBox_position.Text = string.Empty;
+                label_count.Text = "0";
+                statusLabel_current.Text = "(No current)";
+                statusLabel_positionAndCount.Text = "No items.";
             }
             else
             {
-                ToggleControls(this, enable: true);
-                label_current.Text = GetCurrentAsString();
-                label_currentIndex.Text = string.Format("{0} of {1}",
-                   bindingSource_product.Position + 1, bindingSource_product.Count);
-            }
-        }
+                splitContainer_main.Panel1.Enabled = true;
+                textBox_position.Enabled = true;
 
-        public void ToggleControls(Control parent, bool enable)
-        {
-            if (parent.HasChildren)
-            {
-                foreach (Control child in parent.Controls)
-                {
-                    if (child is TextBox || child is DateTimePicker)
-                    {
-                        child.Enabled = enable;
-                    }
-                    else
-                    {
-                        ToggleControls(child, enable);
-                    }
-                }
+                string position = (bindingSource_product.Position + 1).ToString();
+                string count = bindingSource_product.Count.ToString();
+                textBox_position.Text = position;
+                label_count.Text = count;
+                statusLabel_current.Text = GetCurrentAsString();
+                statusLabel_positionAndCount.Text = string.Format("{0} of {1}", position, count);
             }
-            textBox_search.Enabled = true;
         }
 
         public string GetCurrentAsString()
@@ -108,17 +108,13 @@ namespace GroceryManager
         }
         #endregion
 
-        private void button_refresh_Click(object sender, EventArgs e)
-        {
-            LoadTable();
-        }
-
-        private void newToolStripMenuItem_Click(object sender, EventArgs e)
+        #region Menu
+        private void menuItem_new_Click(object sender, EventArgs e)
         {
             bindingSource_product.AddNew();
         }
 
-        private void deleteToolStripMenuItem_Click(object sender, EventArgs e)
+        private void menuItem_delete_Click(object sender, EventArgs e)
         {
             if (bindingSource_product.Current != null)
             {
@@ -137,14 +133,14 @@ namespace GroceryManager
             }
         }
 
-        private void saveToolStripMenuItem_Click(object sender, EventArgs e)
+        private void menuItem_save_Click(object sender, EventArgs e)
         {
             try
             {
                 DisplayStatus("Saving...");
-                this.Validate();
-                this.bindingSource_product.EndEdit();
-                this.tableAdapterManager.UpdateAll(this.database);
+                Validate();
+                bindingSource_product.EndEdit();
+                tableAdapterManager.UpdateAll(database);
                 DisplayStatus("Saved.");
             }
             catch (Exception exception)
@@ -153,42 +149,42 @@ namespace GroceryManager
             }
         }
 
-        private void refreshToolStripMenuItem_Click(object sender, EventArgs e)
+        private void menuItem_refresh_Click(object sender, EventArgs e)
         {
-            LoadTable();
+            Retrieve();
         }
 
-        private void closeToolStripMenuItem_Click(object sender, EventArgs e)
+        private void menuItem_close_Click(object sender, EventArgs e)
         {
             Close();
         }
 
-        private void nextToolStripMenuItem_Click(object sender, EventArgs e)
+        private void menuItem_next_Click(object sender, EventArgs e)
         {
             bindingSource_product.MoveNext();
         }
 
-        private void previousToolStripMenuItem_Click(object sender, EventArgs e)
+        private void menuItem_previous_Click(object sender, EventArgs e)
         {
             bindingSource_product.MovePrevious();
         }
 
-        private void firstToolStripMenuItem_Click(object sender, EventArgs e)
+        private void menuItem_first_Click(object sender, EventArgs e)
         {
             bindingSource_product.MoveFirst();
         }
 
-        private void lastToolStripMenuItem_Click(object sender, EventArgs e)
+        private void menuItem_last_Click(object sender, EventArgs e)
         {
             bindingSource_product.MoveLast();
         }
 
-        private void helpToolStripMenuItem_Click(object sender, EventArgs e)
+        private void menuItem_help_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Here you can manage products of the store.");
+            MessageBox.Show("\n\n\nHere you can manage products of the store.\n\n\n", Text);
         }
 
-        private void undoToolStripMenuItem_Click(object sender, EventArgs e)
+        private void menuItem_undo_Click(object sender, EventArgs e)
         {
             if (database.HasChanges())
             {
@@ -202,6 +198,12 @@ namespace GroceryManager
             }
         }
 
+        private void menuItem_search_Click(object sender, EventArgs e)
+        {
+            textBox_search.Focus();
+        }
+        #endregion
+
         private void bindingSource_product_CurrentChanged(object sender, EventArgs e)
         {
             DisplayCurrent();
@@ -212,14 +214,15 @@ namespace GroceryManager
             DisplayStatus("Data Error: {0}", e.Exception.Message);
         }
 
-        private void bindingSource_product_AddingNew(object sender, System.ComponentModel.AddingNewEventArgs e)
+        private void bindingSource_product_AddingNew(object sender, AddingNewEventArgs e)
         {
             DisplayStatus("Adding New...");
-        }
-
-        private void textBox_search_TextChanged(object sender, EventArgs e)
-        {
-            Filter();
+            DataRowView newRowView = (bindingSource_product.List as DataView).AddNew();
+            Database.productRow newProductRow = newRowView.Row as Database.productRow;
+            newProductRow.upc = Guid.NewGuid().ToString();
+            newProductRow.create_date = DateTime.Now;
+            e.NewObject = bindingSource_product.Current;
+            bindingSource_product.MoveLast();
         }
 
         private void button_search_Click(object sender, EventArgs e)
@@ -233,10 +236,42 @@ namespace GroceryManager
             {
                 Filter();
             }
-            if (e.KeyCode == Keys.Escape)
+        }
+
+        private void button_clearSearch_Click(object sender, EventArgs e)
+        {
+            Filter(clear: true);
+        }
+
+        private void textBox_search_TextChanged(object sender, EventArgs e)
+        {
+            Filter();
+        }
+
+        private void textBox_position_Validated(object sender, EventArgs e)
+        {
+            SetCurrent();
+        }
+
+        private void textBox_position_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
             {
-                Filter(enable: false);
+                SetCurrent();
             }
+        }
+
+        private void bindingSource_product_ListChanged(object sender, ListChangedEventArgs e)
+        {
+            if (e.ListChangedType == ListChangedType.ItemChanged)
+            {
+                database.product[e.NewIndex].update_date = DateTime.Now;
+            }
+        }
+
+        private void titleTextBox_TextChanged(object sender, EventArgs e)
+        {
+            Validate();
         }
     }
 }
